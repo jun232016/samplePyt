@@ -24,3 +24,31 @@ build:
     - echo $IS_PULL_REQUEST
     - python --version
     - echo $A and $C and $key1
+    
+integrations:
+  
+  notifications:
+    - integrationName: ship-slack
+      type: slack
+      recipients:
+        - "#random" 
+        - "#public-chnl"
+      on_start: always
+      on_success: always
+      on_failure: always
+          
+    
+    - integrationName: postci
+      type: webhook
+      payload:
+        - API_URL=$SHIPPABLE_API_URL
+        - CONTAINER_NAME=$SHIPPABLE_CONTAINER_NAME
+        - FOO=bar
+        - FIZZ=buzz
+        - committer=$COMMITTER 
+        - Last_author=$LAST_AUTHOR 
+        - commit_message=$COMMIT_MESSAGE
+        
+      on_start: always
+      on_success: always
+      
